@@ -9,5 +9,5 @@
   "main": "index.js",
   "repository": "https://github.com/mhuot/kanboardbotkit.git",
   "author": "Mike Huot <mhuot@mhuot.net>",
-  "license": "MIT"
+  "license": "GNU Affero General Public License v3.0"
 }
