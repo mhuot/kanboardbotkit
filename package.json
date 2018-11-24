@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "botkit": "^0.6.21",
+    "ciscospark-websocket-events": "^1.2.0",
+    "jsonfile": "^4.0.0"
+  },
+  "name": "kanboardbotkit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mhuot/kanboardbotkit.git",
+  "author": "Mike Huot <mhuot@mhuot.net>",
+  "license": "MIT"
+}

@@ -1,0 +1,2 @@
+# kanboardbotkit
+This project will implement a [Cisco WebEx Teams](https://teams.webex.com/signin) [Botkit](https://botkit.ai) bot for use with [Kanboard](https://kanboard.org/). The project uses the [experimental websocket library](https://github.com/marchfederico/ciscospark-websocket-events) for Webex Teams, this allows you to not expose your bot on the Internet because you won't register a Webhook. 
