@@ -159,9 +159,11 @@ controller.hears('^get (inactive )?tasks (for |for project )?(.*)$', 'direct_mes
 });
 
 controller.hears('^[Aa]dd task to project (.*)$', 'direct_message,direct_mention', function (bot, message) {
-  const projectid = Number(message.match[1]);
+  projectid = Number(message.match[1]);
+  console.log(`Project ID is now ${projectid}`);
 
-  getSwimlanes(message, projectid).then(swimlane => {
+  kb.execute('getProjectById', {project_id: projectid}).on('success',(result) => {
+    swimlane = result.default_swimlane;
     console.log(`Umm...swimlane is ${swimlane}`);
     bot.createConversation(message, (errno, convo) => {
       convo.addQuestion(`Do you want to use the default swimlane ${swimlane}?`, [
@@ -222,19 +224,11 @@ controller.hears('^[Aa]dd task to project (.*)$', 'direct_message,direct_mention
       //   convo.next();
       convo.activate();
     });
-  });
-});
-
-async function getSwimlanes(message, projectid) {
-  return await kb.execute('getProjectById', {project_id: projectid}).on('success', (result) => {
-    swimlane = result.default_swimlane;
-    console.log(`swimlane is ${swimlane}`);
   }).on('error', (error) => {
     bot.startConversation(message, (errno, convo) => {
       convo.say(`Sorry I could not find the project ${projectid}`);
       console.log(error);
       convo.next();
     });  
-    swimlane = "";
   });
-}
+});
