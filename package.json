@@ -2,7 +2,8 @@
   "dependencies": {
     "botkit": "^0.6.21",
     "ciscospark-websocket-events": "^1.2.0",
-    "jsonfile": "^4.0.0"
+    "jsonfile": "^4.0.0",
+    "kanboard": "^0.0.3"
   },
   "name": "kanboardbotkit",
   "version": "1.0.0",

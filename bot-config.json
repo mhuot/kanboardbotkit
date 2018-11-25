@@ -1,0 +1,5 @@
+{
+  "Kanboard_URL" : "http://kanboard/jsonrpc.php",
+  "Kanboard_User" : "bot",
+  "Kanboard_PW" : "iamabot"
+}
