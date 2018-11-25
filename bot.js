@@ -184,18 +184,6 @@ controller.hears('^[Aa]dd task to project (.*)$', 'direct_message,direct_mention
         {
           pattern: bot.utterances.no,
           callback: function(response,convo) {
-          //   convo.say('OK, let me get a list of swimlanes for the project.');
-          //   const swimlanes = kb.execute('getAllSwimlanes', {project_id: projectid}).on('success', (result) => {
-          //     convo.say('Here is the list - ');
-          //     for (i in result) {
-          //       convo.say('Swimlane ID ${result.id} is named ${result.name}');
-          //     }
-          //   }).on('error', (error) => {
-          //     convo.say(`Sorry I experienced an error ${error}`);
-          //     console.log(error);
-          //   });
-          //   convo.addQuestion('It looks like there is more than one swimlane, which swimlane should I use?',function(swimlane,convo) {
-
             convo.say('Sorry I do not have this feature implemented yet!');
             convo.next();
           }
@@ -209,26 +197,41 @@ controller.hears('^[Aa]dd task to project (.*)$', 'direct_message,direct_mention
           }
         }
       ],{},'default');
-
-
-
-      // condo.addQuestion('Which column should this go into?');
-      // convo.addQuestion('What would you like to call the task?',function(taskname,convo) {
-        
-      //   kb.execute('getMyProjects').on('success', (result) => {
-      //     convo.say('Great, I have added ${response} as id ${taskid} to the project ${projectid}');
-      //   }).on('error', (error) => {
-      //     convo.say(`Sorry I experienced an error ${error}`);
-      //     console.log(error);
-      //   });
-      //   convo.next();
       convo.activate();
+      console.log(`Status - ${convo.status}`);
     });
   }).on('error', (error) => {
     bot.startConversation(message, (errno, convo) => {
       convo.say(`Sorry I could not find the project ${projectid}`);
       console.log(error);
-      convo.next();
+      convo.stop();
     });  
   });
+});
+
+controller.hears(['shutdown'], 'direct_message,direct_mention,mention', function(bot, message) {
+
+    bot.startConversation(message, function(err, convo) {
+
+        convo.ask('Are you sure you want me to shutdown?', [
+            {
+                pattern: bot.utterances.yes,
+                callback: function(response, convo) {
+                    convo.say('Bye!');
+                    convo.next();
+                    setTimeout(function() {
+                        process.exit();
+                    }, 3000);
+                }
+            },
+        {
+            pattern: bot.utterances.no,
+            default: true,
+            callback: function(response, convo) {
+                convo.say('*Phew!*');
+                convo.next();
+            }
+        }
+        ]);
+    });
 });
